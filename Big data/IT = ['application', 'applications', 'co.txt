@@ -1,0 +1,33 @@
+IT = ['application', 'applications', 'computer', 'information', 'software',
+      'programs', 'program', 'engines', 'interface', 'Virtual',
+      'server', 'URL', '', '', '',
+      '','','','','',
+      '','','','','',]
+
+edu_soft = [educational software, new technologies, interaction, teachers,
+            students, transfer of knowledge, virtual physical laboratories,
+            experiments simulation, physics, animations, general physics course,
+            technical academic programs, game engines, augmented reality,
+            virtual reality, computer-based educational programs, LabinApp, 
+            3D graphics, physics, biology, experiments, interactive study,
+            detailed visualization, Newton programs, virtual physical laboratories,
+            software, kinematics, dynamics, thermodynamics, optics,
+            user-controlled experiments, Virtual Star Laboratories, 
+            research applications, biology, genetics, hydrology, NASA, Unity 3D,
+            solar system simulation, Eyes on the Earth, Universal sandbox,
+            astronomical simulator, 3D models, real-time monitoring, visual analysis,
+            Virtual Game Lab, mental diseases, cognitive abilities, human behavior,
+            educational software, 
+            ]
+
+business = ['management', 'business', 'monitoring', '', '',
+            '','','','','',
+            '','','','','',
+            '','','','','',
+            '','','','','',]
+
+eq_value = ['well','best','but','good','',
+            '','','','','',
+            '','','','','',
+            '','','','','',
+            '','','','','',]

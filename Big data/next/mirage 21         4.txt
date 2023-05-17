@@ -1,0 +1,12 @@
+mirage 21         4
+dust 21           4
+
+nuke 18           4
+inferno 18        4
+anubis            4
+lake              5
+bank              5
+dust 2            5
+italy             6
+savehouse         6
+train 6

@@ -1,0 +1,327 @@
+-- Database: sql
+
+-- DROP DATABASE sql;
+
+CREATE DATABASE sql
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Kazakh_Kazakhstan.utf8'
+    LC_CTYPE = 'Kazakh_Kazakhstan.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+	
+CREATE TABLE Companies(
+company_id int PRIMARY KEY,
+company_name varchar(30),
+country varchar(30),
+amount_of_films int,
+rating int);
+
+INSERT INTO Companies
+VALUES (1, 'Jebe', 'KZ', 14, 4);
+
+INSERT INTO Companies
+VALUES (2, 'KOIANBAEV', 'KZ', 4, 6);
+
+INSERT INTO Companies
+VALUES (3, 'KN', 'KZ', 3, 2);
+
+
+CREATE TABLE Actors(
+actor_id int PRIMARY KEY,
+first_name varchar(30),
+last_name varchar(30),
+DOB date,
+race varchar(30),
+country varchar(30),
+old int,
+amount_of_films int,
+rating int);
+
+INSERT INTO Actors
+VALUES (1, 'Nurlan', 'Koianbaev', '1985-03-11', 'yellow','KZ', 36, 6, 7);
+
+INSERT INTO Actors
+VALUES (2, 'Kairat', 'Nurtas', '1989-04-11', 'yellow','KZ', 32, 3, 4);
+
+INSERT INTO Actors
+VALUES (3, 'Arman', 'Maksat', '1999-03-15', 'yellow','KZ', 22, 10, 6);
+
+
+CREATE TABLE Movies(
+movie_id int PRIMARY KEY,
+movie_name varchar(30),
+realease_d date,
+genre varchar(30),
+rating int,
+company_id int,
+FOREIGN KEY (company_id) REFERENCES Companies(company_id));
+
+INSERT INTO Movies
+VALUES (1, 'Koian', '2022-03-11', 'Comedy', 5, 2);
+
+INSERT INTO Movies
+VALUES (2, 'Arman', '2021-12-01', 'Dramma', 4, 3);
+
+INSERT INTO Movies
+VALUES (3, 'Asel', '2021-11-11', 'War', 6, 1);
+
+
+CREATE TABLE Cinema(
+cinema_id int PRIMARY KEY,
+cinema_name varchar(30),
+address text,
+amount_of_halls int,
+rating int);
+
+INSERT INTO Cinema
+VALUES (1, 'Cimena towers', 'Baizak 28', 5, 5);
+
+INSERT INTO Cinema
+VALUES (2, 'Star Cimena', 'Abai 128', 4, 6);
+
+INSERT INTO Cinema
+VALUES (3, 'Cimena city', 'Satpaeva 8', 6, 7);
+
+
+CREATE TABLE Halls(
+hall_id int PRIMARY KEY,
+num_of_seats int,
+cinema_id int,
+FOREIGN KEY (cinema_id) REFERENCES Cinema(cinema_id));
+
+INSERT INTO Halls
+VALUES (1, 70, 1);
+
+INSERT INTO Halls
+VALUES (2, 100, 1);
+
+INSERT INTO Halls
+VALUES (3, 40, 1);
+
+
+CREATE TABLE Poster(
+poster_id int PRIMARY KEY,
+d date,
+t time,
+movie_id int,
+cinema_id int,
+hall_id int,
+FOREIGN KEY (hall_id) REFERENCES Halls(hall_id),
+FOREIGN KEY (cinema_id) REFERENCES Cinema(cinema_id),
+FOREIGN KEY (movie_id) REFERENCES Movies(movie_id));
+
+INSERT INTO Poster
+VALUES (1, '2021-10-05', '16:10', 3, 1, 2);
+
+INSERT INTO Poster
+VALUES (2, '2021-10-05', '10:10', 3, 1, 1);
+
+INSERT INTO Poster
+VALUES (3, '2021-10-05', '20:00', 3, 1, 3);
+
+
+CREATE TABLE Tickets(
+ticket_id int PRIMARY KEY,
+price int);
+
+INSERT INTO Tickets
+VALUES (1, 2000);
+
+INSERT INTO Tickets
+VALUES (2, 1000);
+
+INSERT INTO Tickets
+VALUES (3, 5000);
+
+
+CREATE TABLE Sale(
+sale_id int PRIMARY KEY,
+poster_id int,
+ticket_id int,
+FOREIGN KEY (Poster_id) REFERENCES Poster(Poster_id),
+FOREIGN KEY (ticket_id) REFERENCES Tickets(ticket_id));
+
+INSERT INTO Sale
+VALUES (1, 3, 2);
+
+INSERT INTO Sale
+VALUES (2, 1, 2);
+
+INSERT INTO Sale
+VALUES (3, 2, 2);
+
+
+CREATE TABLE Point_of_sale(
+shop_id int PRIMARY KEY,
+shop_name varchar(50),
+address text);
+
+INSERT INTO Point_of_sale
+VALUES (1, 'Kinoman', 'Abai 45');
+
+INSERT INTO Point_of_sale
+VALUES (2, 'Kino KZ', 'Gogol 44');
+
+INSERT INTO Point_of_sale
+VALUES (3, 'VIP movie', 'Al Farabi 77');
+
+
+CREATE TABLE Users(
+user_id int PRIMARY KEY,
+first_name varchar(20),
+last_name varchar(20),
+DOB date);
+
+INSERT INTO Users
+VALUES (1, 'Karl', 'King', '1999-09-09');
+
+INSERT INTO Users
+VALUES (2, 'Kairat', 'Talgat', '1989-03-09');
+
+INSERT INTO Users
+VALUES (3, 'Asel', 'Arman', '2000-01-01');
+
+
+CREATE TABLE Custumers(
+cust_id int PRIMARY KEY,
+user_id int,
+shop_id int,
+sale_id int,
+FOREIGN KEY (user_id) REFERENCES Users(user_id),
+FOREIGN KEY (shop_id) REFERENCES Point_of_sale(shop_id),
+FOREIGN KEY (sale_id) REFERENCES Sale(sale_id));
+
+INSERT INTO Custumers
+VALUES (1, 2, 3, 1);
+
+INSERT INTO Custumers
+VALUES (2, 1, 1, 1);
+
+INSERT INTO Custumers
+VALUES (3, 2, 3, 2);
+
+
+CREATE TABLE Casting(
+cast_id int PRIMARY KEY,
+amount_of_members int,
+amount_of_actors int,
+movie_id int,
+actor_id int,
+FOREIGN KEY (movie_id) REFERENCES Movies(movie_id),
+FOREIGN KEY (actor_id) REFERENCES Actors(actor_id));
+
+INSERT INTO Casting
+VALUES (1, 50, 30, 1, 3);
+
+INSERT INTO Casting
+VALUES (2, 150, 50, 2, 3);
+
+INSERT INTO Casting
+VALUES (3, 70, 20, 3, 3);
+
+
+CREATE TABLE Producers(
+producer_id int PRIMARY KEY,
+producer_name varchar(30),
+DOB date,
+country varchar(30),
+amount_of_films int,
+rating int);
+
+INSERT INTO Producers
+VALUES (1, 'Saken Token', '1980-09-09', 'KZ', 2, 6);
+
+INSERT INTO Producers
+VALUES (2, 'Maxim Ivan', '1985-07-09', 'RU', 20, 5);
+
+INSERT INTO Producers
+VALUES (3, 'Dos Baizhan', '1991-09-09', 'KZ', 3, 4);
+
+
+CREATE TABLE Art(
+Art_id int PRIMARY KEY,
+producer_id int,
+movie_id int,
+FOREIGN KEY (producer_id) REFERENCES Producers(producer_id),
+FOREIGN KEY (movie_id) REFERENCES Movies(movie_id));
+
+INSERT INTO Art
+VALUES (1, 1, 2);
+
+INSERT INTO Art
+VALUES (2, 1, 3);
+
+INSERT INTO Art
+VALUES (3, 2, 1);
+
+
+CREATE TABLE Directors(
+director_id int PRIMARY KEY,
+director_name varchar(30),
+DOB date,
+country varchar(30),
+amount_of_films int,
+rating int);
+
+INSERT INTO Directors
+VALUES (1, 'Burkit', '1980-09-09', 'KZ', 2, 3);
+
+INSERT INTO Directors
+VALUES (2, 'Arman Maksut', '1988-09-09', 'KZ', 5, 4);
+
+INSERT INTO Directors
+VALUES (3, 'Ivan Ivanov', '1980-09-09', 'KZ', 1, 6);
+
+
+CREATE TABLE Budget(
+budget_id int PRIMARY KEY,
+price int,
+director_id int,
+movie_id int,
+FOREIGN KEY (director_id) REFERENCES Directors(director_id),
+FOREIGN KEY (movie_id) REFERENCES Movies(Movie_id));
+
+INSERT INTO Budget
+VALUES (1, 2000000, 2, 1);
+
+INSERT INTO Budget
+VALUES (2, 12000000, 3, 3);
+
+INSERT INTO Budget
+VALUES (3, 50000000, 1, 2);
+
+
+
+Select * from Companies
+
+Select * from Actors
+
+Select * from Movies
+
+Select * from Cinema
+
+Select * from Halls
+
+Select * from Poster
+
+Select * from Tickets
+
+Select * from Sale
+
+Select * from Point_of_sale
+
+Select * from Users
+
+Select * from Custumers
+
+Select * from Casting
+
+Select * from Producers
+
+Select * from Art
+
+Select * from Directors
+
+Select * from Budget
